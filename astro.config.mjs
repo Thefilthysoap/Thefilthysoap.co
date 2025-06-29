@@ -1,6 +1,8 @@
 import { defineConfig } from 'astro/config';
+import github from '@astrojs/github';
 
 export default defineConfig({
-  site: 'https://Thefilthysoap.co',
-  // no base needed for user pages
+  output: 'static',
+  site: 'https://thefilthysoap.co',
+  integrations: [github()],
 });
