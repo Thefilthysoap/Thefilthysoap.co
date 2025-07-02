@@ -40,22 +40,11 @@
         font-weight: bold;
       }
           .gallery {
-        column-count: 1;
+        column-count: 2;
         column-gap: 1rem;
         padding: 1rem;
         max-width: 1200px;
         margin: 0 auto;
-        }
-
-        @media (min-width: 600px) {
-        .gallery {
-        column-count: 2;
-        }
-        }
-        @media (min-width: 900px) {
-        .gallery {
-        column-count: 3;
-        }
         }
 
         .gallery img {
@@ -66,6 +55,7 @@
         object-fit: cover;
         display: block;
         break-inside: avoid;
+        cursor: pointer; /* Indicates image is clickable */
         }
 
       footer {
@@ -102,5 +92,29 @@
     <footer>
       &copy; 2025 Thefilthysoap. All rights reserved.
     </footer>
+
+    <!-- Lightbox Modal -->
+<div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:1000;">
+  <img id="lightbox-img" src="" alt="" style="max-width:90vw; max-height:90vh; border-radius:8px;" />
+</div>
+
+<script>
+  const gallery = document.querySelector('.gallery');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+
+  gallery.addEventListener('click', function(e) {
+    if (e.target.tagName === 'IMG') {
+      lightboxImg.src = e.target.src;
+      lightbox.style.display = 'flex';
+    }
+  });
+
+  lightbox.addEventListener('click', function() {
+    lightbox.style.display = 'none';
+    lightboxImg.src = '';
+  });
+</script>
+
   </body>
 </html>
