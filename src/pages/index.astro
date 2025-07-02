@@ -39,20 +39,35 @@
         text-decoration: none;
         font-weight: bold;
       }
-      .gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 1.5rem;
-        padding: 2rem;
+          .gallery {
+        column-count: 1;
+        column-gap: 1rem;
+        padding: 1rem;
         max-width: 1200px;
         margin: 0 auto;
-      }
-      .gallery img {
+        }
+
+        @media (min-width: 600px) {
+        .gallery {
+        column-count: 2;
+        }
+        }
+        @media (min-width: 900px) {
+        .gallery {
+        column-count: 3;
+        }
+        }
+
+        .gallery img {
         width: 100%;
+        margin-bottom: 1rem;
         border-radius: 8px;
         box-shadow: 0 4px 16px rgba(0,0,0,0.5);
         object-fit: cover;
-      }
+        display: block;
+        break-inside: avoid;
+        }
+
       footer {
         text-align: center;
         color: #888;
@@ -74,12 +89,14 @@
     <main>
       <section class="gallery">
         <!-- Replace the src with your own images in the /public folder -->
-        <img src="/Worldfair.jpg" alt="The Unisphere is a spherical stainless steel representation of the Earth at Flushing Meadows–Corona Park in Queens, New York City, New York. The globe was designed by Gilmore D. Clarke for the 1964 New York World's Fair. Commissioned to celebrate the beginning of the space age, the Unisphere was conceived and constructed as the theme symbol of the World's Fair. " />
-        <img src="/Thalia at sunrise.jpg" alt="Description of photo 2" />
-        <img src="/Ground Zero Anniversary.jpg" alt="Description of photo 3" />
-        <img src="/NYC Skyscraper.jpg" alt="Description of photo 4" />
-		<img src="/Worldsfair 2.jpg" alt="Description of photo 5" />
-		<img src="/El escorial.jpg" alt="Description of photo 6" />
+        <img src="/Worldfair.webp" alt="The Unisphere is a spherical stainless steel representation of the Earth at Flushing Meadows–Corona Park in Queens, New York City, New York. The globe was designed by Gilmore D. Clarke for the 1964 New York World's Fair. Commissioned to celebrate the beginning of the space age, the Unisphere was conceived and constructed as the theme symbol of the World's Fair. " loading="lazy"/>
+        <img src="/Thalia at sunrise.webp" alt="Description of photo 2" loading="lazy"/>
+        <img src="/Ground Zero Anniversary.webp" alt="Description of photo 3" loading="lazy"/>
+        <img src="/NYC Skyscraper.webp" alt="Description of photo 4" loading="lazy"/>
+		    <img src="/Worldsfair 2.webp" alt="Description of photo 5" loading="lazy"/>
+		    <img src="/El escorial.webp" alt="Description of photo 6" loading="lazy"/>
+        <img src="/Dumbo.webp" alt="Description of photo 7" loading="lazy"/>
+        <img src="/NYC Skyscraper 2.webp" alt="Description of photo 8" loading="lazy"/>
       </section>
     </main>
     <footer>
