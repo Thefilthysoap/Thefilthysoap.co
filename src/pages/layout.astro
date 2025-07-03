@@ -1,7 +1,8 @@
 ---
-import Layout from '../layouts/Layout.astro';
-title: "Portfolio";
+// src/layouts/Layout.astro
+const { title = "The Filthysoap Photography" } = Astro.props;
 ---
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -15,7 +16,6 @@ title: "Portfolio";
         font-family: 'Helvetica Neue', Arial, sans-serif;
         margin: 0;
         padding: 0;
-        display: center;
       }
       header {
         display: flex;
@@ -96,15 +96,6 @@ title: "Portfolio";
         color: #888;
         padding: 2rem 1rem;
       }
-
-        main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center; /* optional, for vertical centering if you set a height */
-        text-align: center;
-        }
-
     </style>
   </head>
   <body>
@@ -112,7 +103,8 @@ title: "Portfolio";
       <a href="/" class="logo-link" aria-label="Home">
         <img src="/logo.png" alt="The Filthysoap Photography Logo" class="site-logo" />
       </a>
-      <span class="tagline"></span>
+      <span class="tagline">Capturing moments, one photo at a time.</span>
+
       <nav>
         <a href="/">Home</a>
         <a href="/portfolio">Portfolio</a>
@@ -120,11 +112,8 @@ title: "Portfolio";
         <a href="/contact">Contact</a>
       </nav>
     </header>
-
     <main>
-      <h2>Portfolio</h2>
-      <p>Welcome to my portfolio. Here are some of my favorite works.</p>
-      <!-- Add your portfolio images or content here -->
+      <slot />
     </main>
     <footer>
       &copy; 2025 Thefilthysoap. All rights reserved.
