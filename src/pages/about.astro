@@ -8,14 +8,13 @@ title: "About";
     <title>The Filthysoap Photography</title>
     <meta name="description" content="A showcase of my favorite photographs." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
+   <style>
       body {
         background: #111;
         color: #eee;
         font-family: 'Helvetica Neue', Arial, sans-serif;
         margin: 0;
         padding: 0;
-        display: center;
       }
       header {
         display: flex;
@@ -59,21 +58,34 @@ title: "About";
       nav a:hover, nav a:focus {
         color: #fff700;
       }
-      @media (max-width: 700px) {
-        header {
-          flex-direction: column;
-          gap: 1rem;
-          align-items: flex-start;
-          padding: 1.5rem 2vw 1rem 2vw;
-        }
-        .tagline {
-          margin-left: 0;
-          margin-top: 0.5rem;
-        }
-        nav {
-          gap: 1.2rem;
-        }
-      }
+      @media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center; /* Center everything horizontally */
+    padding: 1.2rem 2vw 1rem 2vw;
+  }
+  .site-logo {
+    height: 80px; /* Much smaller on mobile */
+    margin-bottom: 0.5rem;
+  }
+  .tagline {
+    margin-left: 0;
+    margin-top: 0.5rem;
+    text-align: center;
+    width: 100%;
+  }
+  nav {
+    gap: 1rem;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  nav a {
+    font-size: 1rem;
+  }
+}
+
       .gallery {
         column-count: 2;
         column-gap: 1rem;
@@ -90,20 +102,96 @@ title: "About";
         display: block;
         break-inside: avoid;
         cursor: pointer;
+        border: 2px solid transparent;
       }
+      .gallery img {
+        transition: transform 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s;
+      }
+
+      .gallery img:hover {
+        transform: scale(1.07); /* Slightly grows the image */
+        box-shadow: 0 8px 32px rgba(0,0,0,0.6); /* Optional: stronger shadow on hover */
+        z-index: 2;
+      }
+
+      body, html {
+        cursor: url('/my-cursor.png') 0 0, auto;
+
+      }
+      html, body, * {
+        cursor: url('/my-cursor.png'), auto;
+      }
+
+
       footer {
         text-align: center;
         color: #888;
         padding: 2rem 1rem;
       }
+      
+      #backToTop {
+        position: fixed;
+        bottom: 32px;
+        right: 32px;
+        background: transparent;
+        border: none;
+        border-radius: 50%;
+        width: 64px;
+        height: 64px;
+        z-index: 9999;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+        transition: background 0.2s;
+        overflow: hidden;
+        opacity: 0.7;
+        /* Hide by default, show with JS as before */
+        display: none;
+      }
+    #backToTop:hover {
+      background: #fff700;
+      opacity: 1;
+    }
+    .backtotop-img {
+      width: 60px;
+      height: 60px;
+      display: block;
+      transition: opacity 0.2s;
+      opacity: 1;
+    }
+    .backtotop-hover {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #111;
+      font-weight: bold;
+      font-size: 1.1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      background: rgb(255, 187, 0); /* Optional: adds a white overlay */
+    }
+    #backToTop:hover .backtotop-img {
+      opacity: 0;
+    }
+    #backToTop:hover .backtotop-hover {
+      opacity: 1;
+    }
 
-        main {
+    main {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center; /* optional, for vertical centering if you set a height */
         text-align: center;
         }
+
 
     </style>
   </head>

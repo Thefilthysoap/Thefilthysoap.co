@@ -1,0 +1,27 @@
+.image-filter-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: flex-start;
+}
+
+.gallery-img {
+  width: 220px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  transition: transform 0.3s, box-shadow 0.3s;
+  background: #222;
+}
+
+.gallery-img:hover {
+  transform: scale(1.07);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
