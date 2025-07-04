@@ -1,0 +1,36 @@
+<!DOCTYPE html><style>.container[data-astro-cid-y7bfczvh]{display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px;font-family:Arial,sans-serif}.grid-container[data-astro-cid-y7bfczvh]{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8px;width:600px;height:340px;margin-bottom:20px;margin-top:20px}iframe[data-astro-cid-y7bfczvh]{width:100%;height:100%;border:3px solid #000000;border-radius:4px;background:#fff}.buttons[data-astro-cid-y7bfczvh]{margin-bottom:15px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}button[data-astro-cid-y7bfczvh]{padding:8px 16px;background-color:#131313;color:#fff;border:none;border-radius:4px;cursor:pointer;font-weight:700;transition:background .2s}button[data-astro-cid-y7bfczvh]:hover{background-color:red}body{background:#570101;color:#eee;font-family:Helvetica Neue,Arial,sans-serif;margin:0;padding:0}
+</style><div class="container" data-astro-cid-y7bfczvh> <div class="grid-container" data-astro-cid-y7bfczvh> <iframe id="iframe0" src="https://www.youtube.com/embed/Eppd3qjy3vk?si=wR58Z-dt7vBDigLO" title="Device 1" data-astro-cid-y7bfczvh></iframe> <iframe id="iframe1" src="https://www.youtube.com/embed/w56QCshaiNQ?si=gYJuRfBgf0Z8gtbf" title="Device 2" data-astro-cid-y7bfczvh></iframe> <iframe id="iframe2" src="https://www.youtube.com/embed/oE--dMHdbSE?si=wOz189XteBjDkNWy" title="Device 3" data-astro-cid-y7bfczvh></iframe> <iframe id="iframe3" src="https://www.youtube.com/embed/hUqQ5JG9w4E?si=veEXOWj5k4Kdg2dl" title="Device 4" data-astro-cid-y7bfczvh></iframe> </div> <h1 data-astro-cid-y7bfczvh>KVM Quad Monitor Demo</h1> <p data-astro-cid-y7bfczvh>Select a viewing mode to see how a KVM can display different video sources.
+</p><p data-astro-cid-y7bfczvh>Lets say you had 4 video sources:</p> <div class="buttons" data-astro-cid-y7bfczvh> <button id="mode1" data-astro-cid-y7bfczvh>All 4 Same</button> <button id="mode2" data-astro-cid-y7bfczvh>Split 2 & 2</button> <button id="mode3" data-astro-cid-y7bfczvh>3 Same, 1 Different</button> <button id="mode4" data-astro-cid-y7bfczvh>All Different</button> </div> </div> <script type="text/javascript">
+  const urls = [
+  "https://www.youtube.com/embed/Eppd3qjy3vk?si=wR58Z-dt7vBDigLO",
+  "https://www.youtube.com/embed/w56QCshaiNQ?si=gYJuRfBgf0Z8gtbf",
+  "https://www.youtube.com/embed/oE--dMHdbSE?si=wOz189XteBjDkNWy",
+  "https://www.youtube.com/embed/hUqQ5JG9w4E?si=veEXOWj5k4Kdg2dl",
+  ];
+
+  document.getElementById("mode1").onclick = function() {
+    for (let i = 0; i < 4; i++) {
+      document.getElementById("iframe" + i).src = urls[0];
+    }
+  };
+
+  document.getElementById("mode2").onclick = function() {
+    document.getElementById("iframe0").src = urls[0];
+    document.getElementById("iframe1").src = urls[0];
+    document.getElementById("iframe2").src = urls[1];
+    document.getElementById("iframe3").src = urls[1];
+  };
+
+  document.getElementById("mode3").onclick = function() {
+    document.getElementById("iframe0").src = urls[0];
+    document.getElementById("iframe1").src = urls[0];
+    document.getElementById("iframe2").src = urls[0];
+    document.getElementById("iframe3").src = urls[1];
+  };
+
+  document.getElementById("mode4").onclick = function() {
+    for (let i = 0; i < 4; i++) {
+      document.getElementById("iframe" + i).src = urls[i];
+    }
+  };
+</script>
