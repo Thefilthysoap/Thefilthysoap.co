@@ -1,0 +1,276 @@
+---
+// rodriguez.astro - Bitcoin Price & Fruit Comparison Widget
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Fruit Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 25%, #e9ecef 50%, #d6d8db 75%, #c0c0c0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.5);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            border: 2px solid rgba(192, 192, 192, 0.3);
+        }
+
+        .title {
+            color: #333;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .btc-price {
+            background: linear-gradient(135deg, #f7931a, #ff8c00);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(247, 147, 26, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .btc-price:hover {
+            transform: translateY(-2px);
+        }
+
+        .btc-price h2 {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .btc-symbol {
+            font-size: 0.8em;
+            opacity: 0.9;
+        }
+
+        .loading {
+            color: #666;
+            font-size: 1.2em;
+            padding: 40px;
+        }
+
+        .fruit-section h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        .fruit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .fruit-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.9));
+            border: 1px solid rgba(192, 192, 192, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .fruit-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-color: rgba(192, 192, 192, 0.5);
+        }
+
+        .fruit-emoji {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .fruit-name {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .fruit-count {
+            color: #f7931a;
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        .fruit-price {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .refresh-btn {
+            background: linear-gradient(135deg, #6c757d, #495057);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .refresh-btn:hover {
+            background: linear-gradient(135deg, #5a6268, #3d4142);
+            transform: translateY(-2px);
+        }
+
+        .last-updated {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .title {
+                font-size: 1.8em;
+            }
+            
+            .btc-price h2 {
+                font-size: 2em;
+            }
+            
+            .fruit-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🪙 Bitcoin Fruit Calculator</h1>
+        <p class="subtitle">See how many fruits you can buy with 1 BTC!</p>
+        
+        <div id="bitcoin-widget">
+            <div class="loading">
+                ⏳ Loading Bitcoin price...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fruit prices in USD (you can update these anytime)
+        const FRUITS = [
+            { name: "Apples", emoji: "🍎", price: 0.75 },
+            { name: "Bananas", emoji: "🍌", price: 0.35 },
+            { name: "Oranges", emoji: "🍊", price: 0.65 },
+            { name: "Grapes", emoji: "🍇", price: 2.99 },
+            { name: "Strawberries", emoji: "🍓", price: 4.50 },
+            { name: "Pineapples", emoji: "🍍", price: 3.25 }
+        ];
+
+        let btcPrice = null;
+        let lastUpdated = null;
+
+        async function fetchBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coindesk.com/v1/bpi/currentprice/USD.json');
+                const data = await response.json();
+                btcPrice = data.bpi.USD.rate_float;
+                lastUpdated = new Date();
+                updateDisplay();
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-widget').innerHTML = `
+                    <div class="loading" style="color: #dc3545;">
+                        ❌ Error loading Bitcoin price. Please try again.
+                    </div>
+                `;
+            }
+        }
+
+        function updateDisplay() {
+            if (!btcPrice) return;
+
+            const fruitCards = FRUITS.map(fruit => {
+                const count = Math.floor(btcPrice / fruit.price);
+                return `
+                    <div class="fruit-card">
+                        <span class="fruit-emoji">${fruit.emoji}</span>
+                        <div class="fruit-name">${fruit.name}</div>
+                        <div class="fruit-count">${count.toLocaleString()}</div>
+                        <div class="fruit-price">$${fruit.price.toFixed(2)} each</div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('bitcoin-widget').innerHTML = `
+                <div class="btc-price">
+                    <div class="btc-symbol">₿ 1 BTC =</div>
+                    <h2>$${btcPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h2>
+                </div>
+                
+                <div class="fruit-section">
+                    <h3>🍎 Fruit Buying Power</h3>
+                    <div class="fruit-grid">
+                        ${fruitCards}
+                    </div>
+                    
+                    <button class="refresh-btn" onclick="fetchBitcoinPrice()">
+                        🔄 Refresh Price
+                    </button>
+                    
+                    <div class="last-updated">
+                        Last updated: ${lastUpdated.toLocaleTimeString()}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Auto-refresh every 30 seconds
+        function startAutoRefresh() {
+            setInterval(fetchBitcoinPrice, 30000);
+        }
+
+        // Initialize the app
+        fetchBitcoinPrice();
+        startAutoRefresh();
+    </script>
+</body>
+</html>
