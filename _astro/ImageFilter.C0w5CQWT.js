@@ -1,9 +1,0 @@
-import{r as m}from"./index.BVOCwoKb.js";/* empty css                           */var d={exports:{}},i={};/**
- * @license React
- * react-jsx-runtime.production.js
- *
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */var p;function x(){if(p)return i;p=1;var s=Symbol.for("react.transitional.element"),l=Symbol.for("react.fragment");function n(r,e,t){var o=null;if(t!==void 0&&(o=""+t),e.key!==void 0&&(o=""+e.key),"key"in e){t={};for(var u in e)u!=="key"&&(t[u]=e[u])}else t=e;return e=t.ref,{$$typeof:s,type:r,key:o,ref:e!==void 0?e:null,props:t}}return i.Fragment=l,i.jsx=n,i.jsxs=n,i}var c;function g(){return c||(c=1,d.exports=x()),d.exports}var a=g();const v=[{src:"/Thalia at sunrise.webp",alt:"Runner in the city",tags:["runner","athlete","outdoor"]},{src:"/Dumbo.webp",alt:"Bridge portrait",tags:["bridge","landscape"]},{src:"/Ground Zero Anniversary.webp",alt:"skyline",tags:["skyline","landscape","NYC","911"]},{src:"/Worldfair.webp",alt:"art piece",tags:["art","installation","world","NYC","globe"]},{src:"/Worldsfair 2.webp",alt:"statue portrait",tags:["statue","landscape","NYC","art","plane"]}];function h(){const[s,l]=m.useState(""),n=v.filter(r=>r.tags.some(e=>e.toLowerCase().includes(s.toLowerCase())));return a.jsxs("div",{className:"image-filter-container",children:[a.jsx("input",{type:"text",placeholder:"Type a tag (e.g., runner, art, bridge...)",value:s,onChange:r=>l(r.target.value),style:{marginBottom:"1rem",padding:"0.5rem",width:"100%",marginTop:"2rem"}}),a.jsx("div",{className:"gallery",children:s===""?a.jsx("p",{style:{color:"#888"},children:"Enter a tag to see images."}):n.length===0?a.jsx("p",{children:"No images found."}):n.map((r,e)=>a.jsx("img",{src:r.src,alt:r.alt,loading:"lazy",className:"gallery-img"},e))})]})}export{h as default};
