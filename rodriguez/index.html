@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-236yyeeu> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Bitcoin Fruit Calculator</title><style>[data-astro-cid-236yyeeu]{margin:0;padding:0;box-sizing:border-box}body{font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#fff,#f8f9fa,#e9ecef,#d6d8db,silver);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}.container[data-astro-cid-236yyeeu]{background:#fffffff2;backdrop-filter:blur(10px);border-radius:20px;padding:40px;box-shadow:0 20px 40px #0000001a,0 0 0 1px #ffffff80;max-width:500px;width:100%;text-align:center;border:2px solid rgba(192,192,192,.3)}.title[data-astro-cid-236yyeeu]{color:#333;font-size:2.2em;margin-bottom:10px;font-weight:600;text-shadow:0 2px 4px rgba(0,0,0,.1)}.subtitle[data-astro-cid-236yyeeu]{color:#666;font-size:1.1em;margin-bottom:30px;font-weight:300}.btc-price[data-astro-cid-236yyeeu]{background:linear-gradient(135deg,#f7931a,#ff8c00);color:#fff;padding:20px;border-radius:15px;margin-bottom:30px;box-shadow:0 8px 20px #f7931a4d;transition:transform .3s ease}.btc-price[data-astro-cid-236yyeeu]:hover{transform:translateY(-2px)}.btc-price[data-astro-cid-236yyeeu] h2[data-astro-cid-236yyeeu]{font-size:2.5em;margin-bottom:5px;font-weight:700}.btc-symbol[data-astro-cid-236yyeeu]{font-size:.8em;opacity:.9}.loading[data-astro-cid-236yyeeu]{color:#666;font-size:1.2em;padding:40px}.fruit-section[data-astro-cid-236yyeeu] h3[data-astro-cid-236yyeeu]{color:#333;margin-bottom:20px;font-size:1.4em;font-weight:600}.fruit-grid[data-astro-cid-236yyeeu]{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-bottom:20px}.fruit-card[data-astro-cid-236yyeeu]{background:linear-gradient(135deg,#ffffffe6,#f8f9fae6);border:1px solid rgba(192,192,192,.3);border-radius:12px;padding:20px;transition:all .3s ease;cursor:pointer}.fruit-card[data-astro-cid-236yyeeu]:hover{transform:translateY(-3px);box-shadow:0 8px 25px #00000026;border-color:#c0c0c080}.fruit-emoji[data-astro-cid-236yyeeu]{font-size:2em;margin-bottom:10px;display:block}.fruit-name[data-astro-cid-236yyeeu]{color:#333;font-weight:600;margin-bottom:5px;font-size:1.1em}.fruit-count[data-astro-cid-236yyeeu]{color:#f7931a;font-size:1.3em;font-weight:700}.fruit-price[data-astro-cid-236yyeeu]{color:#666;font-size:.9em;margin-top:5px}.refresh-btn[data-astro-cid-236yyeeu]{background:linear-gradient(135deg,#6c757d,#495057);color:#fff;border:none;padding:12px 30px;border-radius:25px;cursor:pointer;font-size:1em;transition:all .3s ease;margin-top:20px}.refresh-btn[data-astro-cid-236yyeeu]:hover{background:linear-gradient(135deg,#5a6268,#3d4142);transform:translateY(-2px)}.last-updated[data-astro-cid-236yyeeu]{color:#666;font-size:.9em;margin-top:15px}@media (max-width: 600px){.container[data-astro-cid-236yyeeu]{padding:20px;margin:10px}.title[data-astro-cid-236yyeeu]{font-size:1.8em}.btc-price[data-astro-cid-236yyeeu] h2[data-astro-cid-236yyeeu]{font-size:2em}.fruit-grid[data-astro-cid-236yyeeu]{grid-template-columns:1fr}}
+</style></head> <body data-astro-cid-236yyeeu> <div class="container" data-astro-cid-236yyeeu> <h1 class="title" data-astro-cid-236yyeeu>🪙 Bitcoin Fruit Calculator</h1> <p class="subtitle" data-astro-cid-236yyeeu>See how many fruits you can buy with 1 BTC!</p> <div id="bitcoin-widget" data-astro-cid-236yyeeu> <div class="loading" data-astro-cid-236yyeeu>
+⏳ Loading Bitcoin price...
+</div> </div> </div> <script type="module">const a=[{name:"Apples",emoji:"🍎",price:.75},{name:"Bananas",emoji:"🍌",price:.35},{name:"Oranges",emoji:"🍊",price:.65},{name:"Grapes",emoji:"🍇",price:2.99},{name:"Strawberries",emoji:"🍓",price:4.5},{name:"Pineapples",emoji:"🍍",price:3.25}];let t=null,c=null;async function n(){try{t=(await(await fetch("https://api.coindesk.com/v1/bpi/currentprice/USD.json")).json()).bpi.USD.rate_float,c=new Date,o()}catch(e){console.error("Error fetching Bitcoin price:",e),document.getElementById("bitcoin-widget").innerHTML=`
+                    <div class="loading" style="color: #dc3545;">
+                        ❌ Error loading Bitcoin price. Please try again.
+                    </div>
+                `}}function o(){if(!t)return;const e=a.map(i=>{const r=Math.floor(t/i.price);return`
+                    <div class="fruit-card">
+                        <span class="fruit-emoji">${i.emoji}</span>
+                        <div class="fruit-name">${i.name}</div>
+                        <div class="fruit-count">${r.toLocaleString()}</div>
+                        <div class="fruit-price">$${i.price.toFixed(2)} each</div>
+                    </div>
+                `}).join("");document.getElementById("bitcoin-widget").innerHTML=`
+                <div class="btc-price">
+                    <div class="btc-symbol">₿ 1 BTC =</div>
+                    <h2>$${t.toLocaleString(void 0,{minimumFractionDigits:2,maximumFractionDigits:2})}</h2>
+                </div>
+                
+                <div class="fruit-section">
+                    <h3>🍎 Fruit Buying Power</h3>
+                    <div class="fruit-grid">
+                        ${e}
+                    </div>
+                    
+                    <button class="refresh-btn" onclick="fetchBitcoinPrice()">
+                        🔄 Refresh Price
+                    </button>
+                    
+                    <div class="last-updated">
+                        Last updated: ${c.toLocaleTimeString()}
+                    </div>
+                </div>
+            `}function s(){setInterval(n,3e4)}n();s();</script> </body> </html>
